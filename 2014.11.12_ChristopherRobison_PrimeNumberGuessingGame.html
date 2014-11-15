@@ -1,0 +1,57 @@
+<script>
+//INPUTS:
+var guess = prompt("What is the first prime number?")
+var currentPrime = 2
+var previousPrime
+
+// FUNCTIONS:
+// Quits the game if player guesses nothing:
+var quit = function(){
+	if (guess == ""){
+		end()
+	}
+}
+
+// What happends if they guess right or wrong:
+var guessing = function(){
+	quit()
+	while (guess != currentPrime){
+		if(currentPrime == 2){
+			guess = prompt("I'm sorry. Guess again!")
+			quit()
+		}
+		else{
+			guess = prompt("I'm sorry. Guess again! Hint: the last prime number was " + previousPrime + ".")
+			quit()
+		}
+	}
+	guess = prompt("Nice! What's the next prime number?")
+	quit()
+}
+
+// Verifies that a number is prime:
+var primeCheck = function(){
+	for(var i = 2; i<currentPrime; i++){
+		if (currentPrime%i == 0){
+			return false
+		}
+	}
+	return true
+}
+
+// Finds the next prime if guessing() is right. Prompts guessing() again. Calls itself:
+var nextPrime = function(){
+	guessing()
+	previousPrime = currentPrime
+	primeCheck()
+	do{
+		currentPrime++
+	}
+	while(primeCheck()==false)
+	nextPrime()
+}
+
+// Processing:
+nextPrime()
+
+</script>
